@@ -111,6 +111,7 @@ export declare class Holding {
     avgPrice: string;
     lever: number;
     deposit: string;
+    upl: string;
     raw: any;
     constructor(init?: Partial<Holding>);
 }

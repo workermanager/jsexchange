@@ -141,6 +141,7 @@ export class Holding {
     avgPrice: string;
     lever: number;
     deposit: string;
+    upl: string;
     raw: any;
     public constructor(init?: Partial<Holding>) {
         Object.assign(this, init);

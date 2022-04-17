@@ -103,6 +103,7 @@ export class WalletImpl {
                         avgPrice: v.getAvgprice(),
                         lever: v.getLever(),
                         deposit: v.getDeposit(),
+                        upl: v.getUpl(),
                         raw: jsonValue(v.getRaw()),
                     });
                 });
@@ -130,6 +131,7 @@ export class WalletImpl {
                     avgPrice: res.getAvgprice(),
                     lever: res.getLever(),
                     deposit: res.getDeposit(),
+                    upl: res.getUpl(),
                     raw: jsonValue(res.getRaw()),
                 });
             });
