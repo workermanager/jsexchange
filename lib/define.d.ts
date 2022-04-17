@@ -70,8 +70,8 @@ export declare class SymbolArg {
  * Ticker处理参数
  */
 export declare class TickerArg {
-    symbol: string;
-    symbols: string[];
+    symbol?: string;
+    symbols?: string[];
     constructor(init?: Partial<TickerArg>);
 }
 /**
@@ -80,7 +80,7 @@ export declare class TickerArg {
 export declare class KLineArg {
     symbol: string;
     interval: string;
-    limit: number;
+    limit?: number;
     constructor(init?: Partial<KLineArg>);
 }
 /**
@@ -165,14 +165,14 @@ export declare class ClearHoldingArg {
 export declare class OrderRequest {
     symbol: string;
     type: string;
-    clientOrderID: string;
+    clientOrderID?: string;
     side: string;
-    offset: string;
-    lever: number;
-    invest: string;
-    quantity: string;
-    price: string;
-    options: string;
+    offset?: string;
+    lever?: number;
+    invest?: string;
+    quantity?: string;
+    price?: string;
+    options?: string;
     constructor(init?: Partial<OrderRequest>);
 }
 /**
@@ -200,28 +200,28 @@ export declare class OrderResponse {
  * 取消订单参数
  */
 export declare class CancelOrderArg {
-    symbol: string;
-    clientOrderID: string;
-    orderID: string;
+    symbol?: string;
+    clientOrderID?: string;
+    orderID?: string;
     constructor(init?: Partial<CancelOrderArg>);
 }
 /**
  * 查询订单参数
  */
 export declare class QueryOrderArg {
-    symbol: string;
-    clientOrderID: string;
-    orderID: string;
-    sync: boolean;
+    symbol?: string;
+    clientOrderID?: string;
+    orderID?: string;
+    sync?: boolean;
     constructor(init?: Partial<QueryOrderArg>);
 }
 /**
  * 列出订单参数
  */
 export declare class ListOrderArg {
-    symbol: string;
-    openOnly: boolean;
-    limit: number;
+    symbol?: string;
+    openOnly?: boolean;
+    limit?: number;
     constructor(init?: Partial<ListOrderArg>);
 }
 /**

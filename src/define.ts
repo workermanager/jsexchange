@@ -87,8 +87,8 @@ export class SymbolArg {
  * Ticker处理参数
  */
 export class TickerArg {
-    symbol: string;
-    symbols: string[];
+    symbol?: string;
+    symbols?: string[];
     public constructor(init?: Partial<TickerArg>) {
         Object.assign(this, init);
     }
@@ -100,7 +100,7 @@ export class TickerArg {
 export class KLineArg {
     symbol: string;
     interval: string;
-    limit: number;
+    limit?: number;
     public constructor(init?: Partial<KLineArg>) {
         Object.assign(this, init);
     }
@@ -216,14 +216,14 @@ export class ClearHoldingArg {
 export class OrderRequest {
     symbol: string;
     type: string;
-    clientOrderID: string;
+    clientOrderID?: string;
     side: string;
-    offset: string;
-    lever: number;
-    invest: string;
-    quantity: string;
-    price: string;
-    options: string;
+    offset?: string;
+    lever?: number;
+    invest?: string;
+    quantity?: string;
+    price?: string;
+    options?: string;
     public constructor(init?: Partial<OrderRequest>) {
         Object.assign(this, init);
     }
@@ -257,9 +257,9 @@ export class OrderResponse {
  * 取消订单参数
  */
 export class CancelOrderArg {
-    symbol: string;
-    clientOrderID: string;
-    orderID: string;
+    symbol?: string;
+    clientOrderID?: string;
+    orderID?: string;
     public constructor(init?: Partial<CancelOrderArg>) {
         Object.assign(this, init);
     }
@@ -269,10 +269,10 @@ export class CancelOrderArg {
  * 查询订单参数
  */
 export class QueryOrderArg {
-    symbol: string;
-    clientOrderID: string;
-    orderID: string;
-    sync: boolean;
+    symbol?: string;
+    clientOrderID?: string;
+    orderID?: string;
+    sync?: boolean;
     public constructor(init?: Partial<QueryOrderArg>) {
         Object.assign(this, init);
     }
@@ -282,9 +282,9 @@ export class QueryOrderArg {
  * 列出订单参数
  */
 export class ListOrderArg {
-    symbol: string;
-    openOnly: boolean;
-    limit: number;
+    symbol?: string;
+    openOnly?: boolean;
+    limit?: number;
     public constructor(init?: Partial<ListOrderArg>) {
         Object.assign(this, init);
     }
