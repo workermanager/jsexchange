@@ -7,6 +7,7 @@ export declare class Ticker {
     bidQty: string;
     askPrice: string;
     askQty: string;
+    closePrice: string;
     createTime: number;
     constructor(init?: Partial<Ticker>);
 }

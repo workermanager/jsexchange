@@ -45,6 +45,7 @@ export class Market {
                         bidQty: v.getBidqty(),
                         askPrice: v.getAskprice(),
                         askQty: v.getAskqty(),
+                        closePrice: v.getCloseprice(),
                         createTime: v.getCreatetime(),
                     });
                 });
@@ -70,6 +71,7 @@ export class Market {
                     bidQty: res.getBidqty(),
                     askPrice: res.getAskprice(),
                     askQty: res.getAskqty(),
+                    closePrice: res.getCloseprice(),
                     createTime: res.getCreatetime(),
                 });
             });
@@ -121,6 +123,7 @@ export class Market {
                 bidQty: res.getBidqty(),
                 askPrice: res.getAskprice(),
                 askQty: res.getAskqty(),
+                closePrice: res.getCloseprice(),
                 createTime: res.getCreatetime(),
             }, m);
         });

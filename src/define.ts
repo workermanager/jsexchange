@@ -7,6 +7,7 @@ export class Ticker {
     bidQty: string;
     askPrice: string;
     askQty: string;
+    closePrice: string;
     createTime: number;
     public constructor(init?: Partial<Ticker>) {
         Object.assign(this, init);
