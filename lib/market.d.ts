@@ -1,9 +1,10 @@
-import { Depth, DepthArg, KLine, KLineArg, Monitor, SymbolArg, Ticker, TickerArg } from "./define";
+import { Depth, DepthArg, KLine, KLineArg, Monitor, SymbolArg, SymbolInfo, Ticker, TickerArg } from "./define";
 export declare class Market {
     client: any;
     constructor(server: string);
     stop(): void;
-    listSymbol(args: SymbolArg): Promise<string[]>;
+    loadSymbol(args: SymbolArg): Promise<SymbolInfo>;
+    listSymbol(args: SymbolArg): Promise<SymbolInfo[]>;
     listLatestTicker(args: TickerArg): Promise<Map<string, Ticker>>;
     loadLatestTicker(args: TickerArg): Promise<Ticker>;
     startCacheTicker(args: TickerArg): Promise<boolean>;

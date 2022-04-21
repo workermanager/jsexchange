@@ -20,8 +20,8 @@ type TestLoader struct {
 	Error error
 }
 
-func (t *TestLoader) ListSymbol(ex string) (symbols []exchange.Symbol, err error) {
-	symbols = append(symbols, exchange.NewSymbol("test", "x-u"))
+func (t *TestLoader) ListSymbol(ex string) (symbols []exchange.SymbolInfo, err error) {
+	symbols = append(symbols, &exchange.SymbolInfoImpl{Ex_: ex, Base_: "x", Quote_: "u"})
 	err = t.Error
 	return
 }

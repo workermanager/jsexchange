@@ -1,4 +1,14 @@
 /**
+ * 交易所Symbol信息
+ */
+export declare class SymbolInfo {
+    symbol: string;
+    base: string;
+    quote: string;
+    contractSize: string;
+    constructor(init?: Partial<SymbolInfo>);
+}
+/**
  * 交易所Ticker信息
  */
 export declare class Ticker {
@@ -64,7 +74,8 @@ export declare class Depth {
  * 列出交易对参数
  */
 export declare class SymbolArg {
-    exchange: string;
+    exchange?: string;
+    symbol?: string;
     constructor(init?: Partial<SymbolArg>);
 }
 /**

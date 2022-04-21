@@ -2,7 +2,7 @@ const messages = require('./exchange_pb');
 const services = require('./exchange_grpc_pb');
 const grpc = require('@grpc/grpc-js');
 
-import { Depth, DepthArg, KLine, KLineArg, Monitor, SymbolArg, Ticker, TickerArg } from "./define"
+import { Depth, DepthArg, KLine, KLineArg, Monitor, SymbolArg, SymbolInfo, Ticker, TickerArg } from "./define"
 
 export class Market {
     client: any;
@@ -12,16 +12,45 @@ export class Market {
     stop() {
         grpc.closeClient(this.client);
     }
-    async listSymbol(args: SymbolArg): Promise<string[]> {
-        return new Promise<string[]>((resolve, reject) => {
+    async loadSymbol(args: SymbolArg): Promise<SymbolInfo> {
+        return new Promise<SymbolInfo>((resolve, reject) => {
             var arg = new messages.SymbolArg();
             arg.setExchange(args.exchange);
+            arg.setSymbol(args.symbol);
+            this.client.loadSymbol(arg, (err: any, res: any) => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                resolve({
+                    symbol: res.getSymbol(),
+                    base: res.getBase(),
+                    quote: res.getQuote(),
+                    contractSize: res.getContractsize(),
+                });
+            });
+        });
+    }
+    async listSymbol(args: SymbolArg): Promise<SymbolInfo[]> {
+        return new Promise<SymbolInfo[]>((resolve, reject) => {
+            var arg = new messages.SymbolArg();
+            arg.setExchange(args.exchange);
+            arg.setSymbol(args.symbol);
             this.client.listSymbol(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);
-                } else {
-                    resolve(res.getSymbolsList());
+                    return;
                 }
+                var symbols: SymbolInfo[] = [];
+                res.getSymbolsList().forEach((v: any) => {
+                    symbols.push({
+                        symbol: v.getSymbol(),
+                        base: v.getBase(),
+                        quote: v.getQuote(),
+                        contractSize: v.getContractsize(),
+                    });
+                });
+                resolve(symbols);
             });
         });
     }

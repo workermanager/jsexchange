@@ -8,6 +8,7 @@ async function test() {
     console.log("test market is starting")
     var marketSrv = new Market(process.env.MARKET_SERVER)
 
+    console.log("load symbols is ", await marketSrv.loadSymbol({ symbol: "test.x-u" }));
     console.log("list symbols is ", await marketSrv.listSymbol({ exchange: "test" }));
 
     var tickers = await marketSrv.listLatestTicker({});

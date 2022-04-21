@@ -1,4 +1,17 @@
 /**
+ * 交易所Symbol信息
+ */
+export class SymbolInfo {
+    symbol: string;
+    base: string;
+    quote: string;
+    contractSize: string;
+    public constructor(init?: Partial<SymbolInfo>) {
+        Object.assign(this, init);
+    }
+}
+
+/**
  * 交易所Ticker信息
  */
 export class Ticker {
@@ -78,7 +91,8 @@ export class Depth {
  * 列出交易对参数
  */
 export class SymbolArg {
-    exchange: string;
+    exchange?: string;
+    symbol?: string;
     public constructor(init?: Partial<SymbolArg>) {
         Object.assign(this, init);
     }
