@@ -394,8 +394,13 @@ export class Monitor {
 
 export class NewWalletArg {
     type: string;
-    apikey: string;
-    apisec: string;
+    apikey?: string;
+    apisec?: string;
+    apipass?: string;
+    prikey?: string;
+    pubkey?: string;
+    userid?: string;
+    appid?: string;
     public constructor(init?: Partial<NewWalletArg>) {
         Object.assign(this, init);
     }

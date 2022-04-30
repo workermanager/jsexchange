@@ -311,8 +311,13 @@ export declare class Monitor {
 }
 export declare class NewWalletArg {
     type: string;
-    apikey: string;
-    apisec: string;
+    apikey?: string;
+    apisec?: string;
+    apipass?: string;
+    prikey?: string;
+    pubkey?: string;
+    userid?: string;
+    appid?: string;
     constructor(init?: Partial<NewWalletArg>);
 }
 //# sourceMappingURL=define.d.ts.map

@@ -331,6 +331,11 @@ export class WalletManager {
             arg.setType(args.type);
             arg.setApikey(args.apikey);
             arg.setApisec(args.apisec);
+            arg.setApipass(args.apipass);
+            arg.setPrikey(args.prikey);
+            arg.setPubkey(args.pubkey);
+            arg.setUserid(args.userid);
+            arg.setAppid(args.appid);
             this.client.newWallet(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);
