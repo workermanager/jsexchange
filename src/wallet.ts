@@ -10,6 +10,7 @@ export interface Wallet {
     loadBalance(args: LoadBalanceArg): Promise<Balance>;
     listHolding(args?: ListHoldingArg): Promise<Map<string, Holding>>;
     loadHolding(args: LoadHoldingArg): Promise<Holding>;
+    withdraw(args: WithdrawArg): Promise<Tx>;
     placeOrder(args: OrderRequest): Promise<OrderResponse>;
     cancelOrder(args: CancelOrderArg): Promise<OrderResponse>;
     queryOrder(args: QueryOrderArg): Promise<OrderResponse>;
