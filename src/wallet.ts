@@ -3,7 +3,7 @@ var services = require('./exchange_grpc_pb');
 var grpc = require('@grpc/grpc-js');
 
 import { ListBalanceArg, ListHoldingArg } from ".";
-import { Balance, NewWalletArg, LoadBalanceArg, Holding, LoadHoldingArg, OrderRequest, OrderResponse, CancelOrderArg, QueryOrderArg, ListOrderArg, WalletEvent, Monitor } from "./define";
+import { Balance, NewWalletArg, LoadBalanceArg, Holding, LoadHoldingArg, OrderRequest, OrderResponse, CancelOrderArg, QueryOrderArg, ListOrderArg, WalletEvent, Monitor, WithdrawArg, Tx } from "./define";
 
 export interface Wallet {
     listBalance(args?: ListBalanceArg): Promise<Map<string, Balance>>;
@@ -137,6 +137,33 @@ export class WalletImpl {
             });
         });
     };
+
+    async withdraw(args: WithdrawArg): Promise<Tx> {
+        return new Promise<Tx>((resolve, reject) => {
+            var arg = new messages.WithdrawArg();
+            arg.setWallet(this.walletID);
+            arg.setAsset(args.asset);
+            if (args.amount) {
+                arg.setAmount(args.amount);
+            } else {
+                arg.setAmount("0");
+            }
+            arg.setMethod(args.method);
+            arg.setPassword(args.password);
+            arg.setCode(args.code);
+            arg.setTo(args.to);
+            this.client.withdraw(arg, (err: any, res: any) => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                resolve({
+                    txid: res.getTxid(),
+                    raw: res.getRaw(),
+                });
+            });
+        });
+    }
 
     async placeOrder(args: OrderRequest): Promise<OrderResponse> {
         return new Promise<OrderResponse>((resolve, reject) => {

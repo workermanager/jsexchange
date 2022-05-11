@@ -405,3 +405,17 @@ export class NewWalletArg {
         Object.assign(this, init);
     }
 }
+
+export class WithdrawArg {
+    asset: string;
+    amount: string;
+    method?: string;
+    password?: string;
+    code?: string;
+    to: string;
+}
+
+export class Tx {
+    txid: string;
+    raw?: string;
+}

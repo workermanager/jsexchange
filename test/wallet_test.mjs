@@ -22,6 +22,8 @@ async function test() {
     var holding = await wallet.loadHolding("USDTETH", "LONG");
     console.log("load holding is ", holding);
 
+    console.log("withdraw result is ", await wallet.withdraw({amount:"112"}));
+
     console.log("place result is ", await wallet.placeOrder({}));
     console.log("cancel result is ", await wallet.cancelOrder({}));
     console.log("query result is ", await wallet.queryOrder({}));

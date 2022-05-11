@@ -320,4 +320,16 @@ export declare class NewWalletArg {
     appid?: string;
     constructor(init?: Partial<NewWalletArg>);
 }
+export declare class WithdrawArg {
+    asset: string;
+    amount: string;
+    method?: string;
+    password?: string;
+    code?: string;
+    to: string;
+}
+export declare class Tx {
+    txid: string;
+    raw?: string;
+}
 //# sourceMappingURL=define.d.ts.map

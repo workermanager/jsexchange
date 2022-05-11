@@ -57,6 +57,11 @@ func (m *TestMockWallet) ClearHolding(symbols ...exchange.Symbol) (err error) {
 	return
 }
 
+func (m *TestMockWallet) Withdraw(asset string, amount decimal.Decimal, method, password, code, to string) (txid string, result xmap.M, err error) {
+	err = m.ErrorCall()
+	return
+}
+
 func (m *TestMockWallet) PlaceOrder(request *exchange.OrderRequest) (response *exchange.OrderResponse, err error) {
 	response = &exchange.OrderResponse{Status: exchange.OrderStatusDoneFull}
 	err = m.ErrorCall()

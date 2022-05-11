@@ -1,5 +1,5 @@
 import { ListBalanceArg, ListHoldingArg } from ".";
-import { Balance, NewWalletArg, LoadBalanceArg, Holding, LoadHoldingArg, OrderRequest, OrderResponse, CancelOrderArg, QueryOrderArg, ListOrderArg, WalletEvent, Monitor } from "./define";
+import { Balance, NewWalletArg, LoadBalanceArg, Holding, LoadHoldingArg, OrderRequest, OrderResponse, CancelOrderArg, QueryOrderArg, ListOrderArg, WalletEvent, Monitor, WithdrawArg, Tx } from "./define";
 export interface Wallet {
     listBalance(args?: ListBalanceArg): Promise<Map<string, Balance>>;
     loadBalance(args: LoadBalanceArg): Promise<Balance>;
@@ -19,6 +19,7 @@ export declare class WalletImpl {
     loadBalance(args: LoadBalanceArg): Promise<Balance>;
     listHolding(args?: ListHoldingArg): Promise<Map<string, Holding>>;
     loadHolding(args: LoadHoldingArg): Promise<Holding>;
+    withdraw(args: WithdrawArg): Promise<Tx>;
     placeOrder(args: OrderRequest): Promise<OrderResponse>;
     cancelOrder(args: CancelOrderArg): Promise<OrderResponse>;
     queryOrder(args: QueryOrderArg): Promise<OrderResponse>;
