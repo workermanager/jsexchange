@@ -10,6 +10,8 @@ async function test() {
         type: "test",
     });
 
+    console.log("load account info is ", await wallet.loadAccountInfo());
+
     var balances = await wallet.listBalance();
     console.log("list balance is ", balances);
 
@@ -23,6 +25,7 @@ async function test() {
     console.log("load holding is ", holding);
 
     console.log("withdraw result is ", await wallet.withdraw({amount:"112"}));
+    console.log("listTransfer result is ", await wallet.listTransfer({side:"withdraw"}));
 
     console.log("place result is ", await wallet.placeOrder({}));
     console.log("cancel result is ", await wallet.cancelOrder({}));

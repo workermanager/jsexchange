@@ -131,6 +131,16 @@ export class DepthArg {
     }
 }
 
+/**
+ * 账户信息
+ */
+export class AccountInfo {
+    totalValue: string;
+    info: any;
+    public constructor(init?: Partial<AccountInfo>) {
+        Object.assign(this, init);
+    }
+}
 
 /**
  * 余额信息
@@ -375,7 +385,7 @@ export enum OrderOffsets {
  */
 export enum OrderStatuses {
     None = "None",
-    Peding = "Peding",
+    Pending = "Pending",
     Partial = "Partial",
     Canceled = "Canceled",
     DoneFull = "DoneFull",
@@ -418,4 +428,32 @@ export class WithdrawArg {
 export class Tx {
     txid: string;
     raw?: string;
+}
+
+export class ListTransferArg {
+    side: string;
+    startTime?: number;
+    endTime?: number;
+}
+
+export enum TransferSides {
+    Withdraw = "withdraw",
+    Deposit = "deposit",
+}
+
+export enum TransferStatuses {
+    Pending = "pending",
+    Cancelled = "cancelled",
+    Done = "done",
+}
+
+export class Transfer {
+    id: string;
+    side: string;
+    asset: string;
+    amount: string;
+    fee: string;
+    address: string;
+    status: string;
+    raw: any;
 }

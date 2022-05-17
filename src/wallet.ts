@@ -3,14 +3,16 @@ var services = require('./exchange_grpc_pb');
 var grpc = require('@grpc/grpc-js');
 
 import { ListBalanceArg, ListHoldingArg } from ".";
-import { Balance, NewWalletArg, LoadBalanceArg, Holding, LoadHoldingArg, OrderRequest, OrderResponse, CancelOrderArg, QueryOrderArg, ListOrderArg, WalletEvent, Monitor, WithdrawArg, Tx } from "./define";
+import { Balance, NewWalletArg, LoadBalanceArg, Holding, LoadHoldingArg, OrderRequest, OrderResponse, CancelOrderArg, QueryOrderArg, ListOrderArg, WalletEvent, Monitor, WithdrawArg, Tx, ListTransferArg, Transfer, AccountInfo } from "./define";
 
 export interface Wallet {
+    loadAccountInfo(): Promise<AccountInfo>;
     listBalance(args?: ListBalanceArg): Promise<Map<string, Balance>>;
     loadBalance(args: LoadBalanceArg): Promise<Balance>;
     listHolding(args?: ListHoldingArg): Promise<Map<string, Holding>>;
     loadHolding(args: LoadHoldingArg): Promise<Holding>;
     withdraw(args: WithdrawArg): Promise<Tx>;
+    listTransfer(args: ListTransferArg): Promise<Transfer[]>;
     placeOrder(args: OrderRequest): Promise<OrderResponse>;
     cancelOrder(args: CancelOrderArg): Promise<OrderResponse>;
     queryOrder(args: QueryOrderArg): Promise<OrderResponse>;
@@ -32,6 +34,25 @@ export class WalletImpl {
     constructor(client: any, walletID: any) {
         this.client = client;
         this.walletID = walletID;
+    }
+
+    async loadAccountInfo(): Promise<AccountInfo> {
+        return new Promise<AccountInfo>((resolve, reject) => {
+            var arg = new messages.LoadAccountInfoArg();
+            arg.setWallet(this.walletID);
+            this.client.loadAccountInfo(arg, (err: any, res: any) => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                var info = new AccountInfo();
+                info.info = JSON.parse(res.getInfo());
+                if (info.info) {
+                    info.totalValue = info.info.totalValue;
+                }
+                resolve(info);
+            });
+        });
     }
 
     async listBalance(args?: ListBalanceArg): Promise<Map<string, Balance>> {
@@ -162,6 +183,41 @@ export class WalletImpl {
                     txid: res.getTxid(),
                     raw: res.getRaw(),
                 });
+            });
+        });
+    }
+
+    async listTransfer(args: ListTransferArg): Promise<Transfer[]> {
+        return new Promise<Transfer[]>((resolve, reject) => {
+            var arg = new messages.ListTransferArg();
+            arg.setWallet(this.walletID);
+            arg.setSide(args.side);
+            if (args.startTime) {
+                arg.setStarttime(args.startTime);
+            }
+            if (args.endTime) {
+                arg.setEndtime(args.endTime);
+            }
+            this.client.listTransfer(arg, (err: any, res: any) => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                var allTransfers: Transfer[] = [];
+                var rawTransfers = res.getTransfersList();
+                rawTransfers.forEach((transfer: any) => {
+                    allTransfers.push({
+                        id: transfer.getId(),
+                        side: transfer.getSide(),
+                        asset: transfer.getAsset(),
+                        amount: transfer.getAmount(),
+                        fee: transfer.getFee(),
+                        address: transfer.getAddress(),
+                        status: transfer.getStatus(),
+                        raw: jsonValue(transfer.getRaw()),
+                    });
+                });
+                resolve(allTransfers);
             });
         });
     }

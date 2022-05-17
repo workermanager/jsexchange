@@ -7,6 +7,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"testing"
+	"time"
 
 	"github.com/codingeasygo/util/xmap"
 	"github.com/shopspring/decimal"
@@ -26,6 +27,11 @@ type TestMockWallet struct {
 func (m *TestMockWallet) Start(conf xmap.M) (err error) {
 	err = m.ErrorCall()
 	fmt.Println("-->", err)
+	return
+}
+
+func (m *TestMockWallet) LoadAccountInfo() (info exchange.AccountInfo, err error) {
+	err = m.ErrorCall()
 	return
 }
 
@@ -58,6 +64,11 @@ func (m *TestMockWallet) ClearHolding(symbols ...exchange.Symbol) (err error) {
 }
 
 func (m *TestMockWallet) Withdraw(asset string, amount decimal.Decimal, method, password, code, to string) (txid string, result xmap.M, err error) {
+	err = m.ErrorCall()
+	return
+}
+func (m *TestMockWallet) ListTransfer(side string, startTime time.Time, endTime time.Time) (transfers []*exchange.Transfer, err error) {
+	transfers = append(transfers, &exchange.Transfer{})
 	err = m.ErrorCall()
 	return
 }

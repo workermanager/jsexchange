@@ -1,11 +1,13 @@
 import { ListBalanceArg, ListHoldingArg } from ".";
-import { Balance, NewWalletArg, LoadBalanceArg, Holding, LoadHoldingArg, OrderRequest, OrderResponse, CancelOrderArg, QueryOrderArg, ListOrderArg, WalletEvent, Monitor, WithdrawArg, Tx } from "./define";
+import { Balance, NewWalletArg, LoadBalanceArg, Holding, LoadHoldingArg, OrderRequest, OrderResponse, CancelOrderArg, QueryOrderArg, ListOrderArg, WalletEvent, Monitor, WithdrawArg, Tx, ListTransferArg, Transfer, AccountInfo } from "./define";
 export interface Wallet {
+    loadAccountInfo(): Promise<AccountInfo>;
     listBalance(args?: ListBalanceArg): Promise<Map<string, Balance>>;
     loadBalance(args: LoadBalanceArg): Promise<Balance>;
     listHolding(args?: ListHoldingArg): Promise<Map<string, Holding>>;
     loadHolding(args: LoadHoldingArg): Promise<Holding>;
     withdraw(args: WithdrawArg): Promise<Tx>;
+    listTransfer(args: ListTransferArg): Promise<Transfer[]>;
     placeOrder(args: OrderRequest): Promise<OrderResponse>;
     cancelOrder(args: CancelOrderArg): Promise<OrderResponse>;
     queryOrder(args: QueryOrderArg): Promise<OrderResponse>;
@@ -16,11 +18,13 @@ export declare class WalletImpl {
     client: any;
     walletID: any;
     constructor(client: any, walletID: any);
+    loadAccountInfo(): Promise<AccountInfo>;
     listBalance(args?: ListBalanceArg): Promise<Map<string, Balance>>;
     loadBalance(args: LoadBalanceArg): Promise<Balance>;
     listHolding(args?: ListHoldingArg): Promise<Map<string, Holding>>;
     loadHolding(args: LoadHoldingArg): Promise<Holding>;
     withdraw(args: WithdrawArg): Promise<Tx>;
+    listTransfer(args: ListTransferArg): Promise<Transfer[]>;
     placeOrder(args: OrderRequest): Promise<OrderResponse>;
     cancelOrder(args: CancelOrderArg): Promise<OrderResponse>;
     queryOrder(args: QueryOrderArg): Promise<OrderResponse>;

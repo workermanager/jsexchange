@@ -103,6 +103,14 @@ export declare class DepthArg {
     constructor(init?: Partial<DepthArg>);
 }
 /**
+ * 账户信息
+ */
+export declare class AccountInfo {
+    totalValue: string;
+    info: any;
+    constructor(init?: Partial<AccountInfo>);
+}
+/**
  * 余额信息
  */
 export declare class Balance {
@@ -298,7 +306,7 @@ export declare enum OrderOffsets {
  */
 export declare enum OrderStatuses {
     None = "None",
-    Peding = "Peding",
+    Pending = "Pending",
     Partial = "Partial",
     Canceled = "Canceled",
     DoneFull = "DoneFull",
@@ -331,5 +339,29 @@ export declare class WithdrawArg {
 export declare class Tx {
     txid: string;
     raw?: string;
+}
+export declare class ListTransferArg {
+    side: string;
+    startTime?: number;
+    endTime?: number;
+}
+export declare enum TransferSides {
+    Withdraw = "withdraw",
+    Deposit = "deposit"
+}
+export declare enum TransferStatuses {
+    Pending = "pending",
+    Cancelled = "cancelled",
+    Done = "done"
+}
+export declare class Transfer {
+    id: string;
+    side: string;
+    asset: string;
+    amount: string;
+    fee: string;
+    address: string;
+    status: string;
+    raw: any;
 }
 //# sourceMappingURL=define.d.ts.map
