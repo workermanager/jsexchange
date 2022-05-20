@@ -423,6 +423,7 @@ export class WithdrawArg {
     password?: string;
     code?: string;
     to: string;
+    tag?: string;
 }
 
 export class Tx {

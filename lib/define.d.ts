@@ -335,6 +335,7 @@ export declare class WithdrawArg {
     password?: string;
     code?: string;
     to: string;
+    tag?: string;
 }
 export declare class Tx {
     txid: string;

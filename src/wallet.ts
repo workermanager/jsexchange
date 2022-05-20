@@ -174,6 +174,7 @@ export class WalletImpl {
             arg.setPassword(args.password);
             arg.setCode(args.code);
             arg.setTo(args.to);
+            arg.setTag(args.tag);
             this.client.withdraw(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);

@@ -63,7 +63,7 @@ func (m *TestMockWallet) ClearHolding(symbols ...exchange.Symbol) (err error) {
 	return
 }
 
-func (m *TestMockWallet) Withdraw(asset string, amount decimal.Decimal, method, password, code, to string) (txid string, result xmap.M, err error) {
+func (m *TestMockWallet) Withdraw(asset string, amount decimal.Decimal, method, password, code, to, tag string) (txid string, result xmap.M, err error) {
 	err = m.ErrorCall()
 	return
 }
