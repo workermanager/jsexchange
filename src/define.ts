@@ -249,7 +249,7 @@ export class OrderRequest {
     invest?: string;
     quantity?: string;
     price?: string;
-    options?: string;
+    options?: any;
     public constructor(init?: Partial<OrderRequest>) {
         Object.assign(this, init);
     }

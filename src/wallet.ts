@@ -248,7 +248,9 @@ export class WalletImpl {
             } else {
                 arg.setPrice("0");
             }
-            arg.setOptions(args.options);
+            if (args.options) {
+                arg.setOptions(JSON.stringify(args.options));
+            }
             this.client.placeOrder(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);

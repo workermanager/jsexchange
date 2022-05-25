@@ -193,7 +193,7 @@ export declare class OrderRequest {
     invest?: string;
     quantity?: string;
     price?: string;
-    options?: string;
+    options?: any;
     constructor(init?: Partial<OrderRequest>);
 }
 /**
