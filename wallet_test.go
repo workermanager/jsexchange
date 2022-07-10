@@ -97,7 +97,7 @@ func (m *TestMockWallet) ListOrder(symbol exchange.Symbol, openOnly bool, limit 
 func (m *TestMockWallet) AddWalletMonitor(monitor exchange.WalletMonitor) {
 	go func() {
 		monitor.OnBalance("balance", "test")
-		monitor.OnHolding("holding", "test", "test")
+		monitor.OnHolding("holding", "test", exchange.NewSymbol("test", "TEST"))
 		monitor.OnOrder("order", "test", "test")
 	}()
 }
@@ -120,8 +120,8 @@ func TestWallet(t *testing.T) {
 			Asset: "USDT",
 			Free:  decimal.NewFromFloat(1000),
 		}
-		mock.Holdings[exchange.WalletPositionLong+".USDTETH"] = &exchange.Holding{
-			Symbol:   "USDTETH",
+		mock.Holdings[exchange.WalletPositionBOTH+".test.USDTETH"] = &exchange.Holding{
+			Symbol:   exchange.NewSymbol("test", "USDTETH"),
 			Amount:   decimal.NewFromFloat(10.10),
 			Position: exchange.WalletPositionLong,
 		}

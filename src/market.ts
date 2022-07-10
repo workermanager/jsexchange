@@ -12,14 +12,17 @@ export class Market {
     stop() {
         grpc.closeClient(this.client);
     }
-    async loadSymbol(args: SymbolArg): Promise<SymbolInfo> {
-        return new Promise<SymbolInfo>((resolve, reject) => {
+    async loadSymbol(args: SymbolArg): Promise<SymbolInfo | undefined> {
+        return new Promise<SymbolInfo | undefined>((resolve, reject) => {
             var arg = new messages.SymbolArg();
-            arg.setExchange(args.exchange);
             arg.setSymbol(args.symbol);
             this.client.loadSymbol(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);
+                    return;
+                }
+                if (!res.getSymbol()) {
+                    resolve(undefined)
                     return;
                 }
                 resolve({
@@ -35,7 +38,6 @@ export class Market {
         return new Promise<SymbolInfo[]>((resolve, reject) => {
             var arg = new messages.SymbolArg();
             arg.setExchange(args.exchange);
-            arg.setSymbol(args.symbol);
             this.client.listSymbol(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);
@@ -57,10 +59,7 @@ export class Market {
     async listLatestTicker(args: TickerArg): Promise<Map<string, Ticker>> {
         return new Promise<Map<string, Ticker>>((resolve, reject) => {
             var arg = new messages.TickerArg();
-            if (args) {
-                arg.setSymbol(args.symbol);
-                arg.setSymbolsList(args.symbols);
-            }
+            arg.setSymbolsList(args.symbols);
             this.client.listLatestTicker(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);
@@ -82,16 +81,17 @@ export class Market {
             });
         });
     }
-    async loadLatestTicker(args: TickerArg): Promise<Ticker> {
-        return new Promise<Ticker>((resolve, reject) => {
+    async loadLatestTicker(args: TickerArg): Promise<Ticker | undefined> {
+        return new Promise<Ticker | undefined>((resolve, reject) => {
             var arg = new messages.TickerArg();
-            if (args) {
-                arg.setSymbol(args.symbol);
-                arg.setSymbolsList(args.symbols);
-            }
+            arg.setSymbol(args.symbol);
             this.client.loadLatestTicker(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);
+                    return;
+                }
+                if (!res.getSymbol()) {
+                    resolve(undefined)
                     return;
                 }
                 resolve({
@@ -167,11 +167,9 @@ export class Market {
     async listKLine(args: KLineArg): Promise<KLine[]> {
         return new Promise<KLine[]>((resolve, reject) => {
             var arg = new messages.KLineArg();
-            if (args) {
-                arg.setSymbol(args.symbol);
-                arg.setInterval(args.interval);
-                arg.setLimit(args.limit);
-            }
+            arg.setSymbol(args.symbol);
+            arg.setInterval(args.interval);
+            arg.setLimit(args.limit);
             this.client.listKLine(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);
@@ -197,17 +195,18 @@ export class Market {
             });
         });
     }
-    async loadKLine(args: KLineArg): Promise<KLine> {
-        return new Promise<KLine>((resolve, reject) => {
+    async loadKLine(args: KLineArg): Promise<KLine | undefined> {
+        return new Promise<KLine | undefined>((resolve, reject) => {
             var arg = new messages.KLineArg();
-            if (args) {
-                arg.setSymbol(args.symbol);
-                arg.setInterval(args.interval);
-                arg.setLimit(args.limit);
-            }
+            arg.setSymbol(args.symbol);
+            arg.setInterval(args.interval);
             this.client.loadKLine(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);
+                    return;
+                }
+                if (!res.getSymbol()) {
+                    resolve(undefined)
                     return;
                 }
                 resolve({
@@ -291,15 +290,17 @@ export class Market {
 
     /** detph **/
 
-    async loadLatestDepth(args: DepthArg): Promise<Depth> {
-        return new Promise<Depth>((resolve, reject) => {
+    async loadLatestDepth(args: DepthArg): Promise<Depth | undefined> {
+        return new Promise<Depth | undefined>((resolve, reject) => {
             var arg = new messages.DepthArg();
-            if (args) {
-                arg.setSymbol(args.symbol);
-            }
+            arg.setSymbol(args.symbol);
             this.client.loadLatestDepth(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);
+                    return;
+                }
+                if (!res.getSymbol()) {
+                    resolve(undefined)
                     return;
                 }
                 var depth: Depth = {

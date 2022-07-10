@@ -8,9 +8,9 @@ import { Balance, NewWalletArg, LoadBalanceArg, Holding, LoadHoldingArg, OrderRe
 export interface Wallet {
     loadAccountInfo(): Promise<AccountInfo>;
     listBalance(args?: ListBalanceArg): Promise<Map<string, Balance>>;
-    loadBalance(args: LoadBalanceArg): Promise<Balance>;
+    loadBalance(args: LoadBalanceArg): Promise<Balance | undefined>;
     listHolding(args?: ListHoldingArg): Promise<Map<string, Holding>>;
-    loadHolding(args: LoadHoldingArg): Promise<Holding>;
+    loadHolding(args: LoadHoldingArg): Promise<Holding | undefined>;
     withdraw(args: WithdrawArg): Promise<Tx>;
     listTransfer(args: ListTransferArg): Promise<Transfer[]>;
     placeOrder(args: OrderRequest): Promise<OrderResponse>;
@@ -82,8 +82,8 @@ export class WalletImpl {
         });
     };
 
-    async loadBalance(args: LoadBalanceArg): Promise<Balance> {
-        return new Promise<Balance>((resolve, reject) => {
+    async loadBalance(args: LoadBalanceArg): Promise<Balance | undefined> {
+        return new Promise<Balance | undefined>((resolve, reject) => {
             var arg = new messages.LoadBalanceArg();
             arg.setWallet(this.walletID);
             arg.setAsset(args.asset);
@@ -91,6 +91,10 @@ export class WalletImpl {
             this.client.loadBalance(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);
+                    return;
+                }
+                if (!res.getAsset()) {
+                    resolve(undefined);
                     return;
                 }
                 resolve({
@@ -134,8 +138,8 @@ export class WalletImpl {
         });
     };
 
-    async loadHolding(args: LoadHoldingArg): Promise<Holding> {
-        return new Promise<Holding>((resolve, reject) => {
+    async loadHolding(args: LoadHoldingArg): Promise<Holding | undefined> {
+        return new Promise<Holding | undefined>((resolve, reject) => {
             var arg = new messages.LoadHoldingArg();
             arg.setWallet(this.walletID);
             arg.setSymbol(args.symbol);
@@ -144,6 +148,10 @@ export class WalletImpl {
             this.client.loadHolding(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);
+                    return;
+                }
+                if (!res.getSymbol()) {
+                    resolve(undefined);
                     return;
                 }
                 resolve({

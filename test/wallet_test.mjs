@@ -15,17 +15,29 @@ async function test() {
     var balances = await wallet.listBalance();
     console.log("list balance is ", balances);
 
-    var balance = await wallet.loadBalance("USDT");
+    var balance = await wallet.loadBalance({ asset: "USDT" });
     console.log("load balance is ", balance);
+    if (!balance) {
+        throw "balance is nil";
+    }
+    if (await wallet.loadBalance({ asset: "NONE" })) {
+        throw "balance is not nil";
+    }
 
     var holdings = await wallet.listHolding();
     console.log("list holding is ", holdings);
 
-    var holding = await wallet.loadHolding("USDTETH", "LONG");
+    var holding = await wallet.loadHolding({ position: "BOTH", symbol: "test.USDTETH" });
     console.log("load holding is ", holding);
+    if (!holding) {
+        throw "holding is nil";
+    }
+    if (await wallet.loadHolding({ position: "BOTH", symbol: "test.NONE" })) {
+        throw "holding is not nil";
+    }
 
-    console.log("withdraw result is ", await wallet.withdraw({amount:"112"}));
-    console.log("listTransfer result is ", await wallet.listTransfer({side:"withdraw"}));
+    console.log("withdraw result is ", await wallet.withdraw({ amount: "112" }));
+    console.log("listTransfer result is ", await wallet.listTransfer({ side: "withdraw" }));
 
     console.log("place result is ", await wallet.placeOrder({}));
     console.log("cancel result is ", await wallet.cancelOrder({}));

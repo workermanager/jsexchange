@@ -3,9 +3,9 @@ import { Balance, NewWalletArg, LoadBalanceArg, Holding, LoadHoldingArg, OrderRe
 export interface Wallet {
     loadAccountInfo(): Promise<AccountInfo>;
     listBalance(args?: ListBalanceArg): Promise<Map<string, Balance>>;
-    loadBalance(args: LoadBalanceArg): Promise<Balance>;
+    loadBalance(args: LoadBalanceArg): Promise<Balance | undefined>;
     listHolding(args?: ListHoldingArg): Promise<Map<string, Holding>>;
-    loadHolding(args: LoadHoldingArg): Promise<Holding>;
+    loadHolding(args: LoadHoldingArg): Promise<Holding | undefined>;
     withdraw(args: WithdrawArg): Promise<Tx>;
     listTransfer(args: ListTransferArg): Promise<Transfer[]>;
     placeOrder(args: OrderRequest): Promise<OrderResponse>;
@@ -20,9 +20,9 @@ export declare class WalletImpl {
     constructor(client: any, walletID: any);
     loadAccountInfo(): Promise<AccountInfo>;
     listBalance(args?: ListBalanceArg): Promise<Map<string, Balance>>;
-    loadBalance(args: LoadBalanceArg): Promise<Balance>;
+    loadBalance(args: LoadBalanceArg): Promise<Balance | undefined>;
     listHolding(args?: ListHoldingArg): Promise<Map<string, Holding>>;
-    loadHolding(args: LoadHoldingArg): Promise<Holding>;
+    loadHolding(args: LoadHoldingArg): Promise<Holding | undefined>;
     withdraw(args: WithdrawArg): Promise<Tx>;
     listTransfer(args: ListTransferArg): Promise<Transfer[]>;
     placeOrder(args: OrderRequest): Promise<OrderResponse>;
