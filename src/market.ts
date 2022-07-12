@@ -113,12 +113,12 @@ export class Market {
                 arg.setSymbol(args.symbol);
                 arg.setSymbolsList(args.symbols);
             }
-            this.client.startCacheTicker(arg, (err: any) => {
+            this.client.startCacheTicker(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);
                     return;
                 }
-                resolve(true);
+                resolve(res.getOk());
             });
         });
     }
@@ -129,12 +129,12 @@ export class Market {
                 arg.setSymbol(args.symbol);
                 arg.setSymbolsList(args.symbols);
             }
-            this.client.stopCacheTicker(arg, (err: any) => {
+            this.client.stopCacheTicker(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);
                     return;
                 }
-                resolve(true);
+                resolve(res.getOk());
             });
         });
     }
@@ -233,12 +233,12 @@ export class Market {
                 arg.setInterval(args.interval);
                 arg.setLimit(args.limit);
             }
-            this.client.startCacheKLine(arg, (err: any) => {
+            this.client.startCacheKLine(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);
                     return;
                 }
-                resolve(true);
+                resolve(res.getOk());
             });
         });
     }
@@ -250,12 +250,12 @@ export class Market {
                 arg.setInterval(args.interval);
                 arg.setLimit(args.limit);
             }
-            this.client.stopCacheKLine(arg, (err: any) => {
+            this.client.stopCacheKLine(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);
                     return;
                 }
-                resolve(true);
+                resolve(res.getOk());
             });
         });
     }
@@ -330,12 +330,12 @@ export class Market {
             if (args) {
                 arg.setSymbol(args.symbol);
             }
-            this.client.startCacheDepth(arg, (err: any) => {
+            this.client.startCacheDepth(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);
                     return;
                 }
-                resolve(true);
+                resolve(res.getOk());
             });
         });
     }
@@ -345,12 +345,12 @@ export class Market {
             if (args) {
                 arg.setSymbol(args.symbol);
             }
-            this.client.stopCacheDepth(arg, (err: any) => {
+            this.client.stopCacheDepth(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);
                     return;
                 }
-                resolve(true);
+                resolve(res.getOk());
             });
         });
     }
