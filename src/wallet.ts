@@ -325,7 +325,7 @@ export class WalletImpl {
             arg.setClientorderid(args.clientOrderID);
             arg.setOrderid(args.orderID);
             arg.setSymbol(args.symbol);
-            arg.setSync(arg.sync);
+            arg.setSync(args.sync);
             this.client.queryOrder(arg, (err: any, res: any) => {
                 if (err) {
                     reject(err);
