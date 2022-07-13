@@ -147,9 +147,9 @@ export class AccountInfo {
  */
 export class Balance {
     asset: string;
-    free: string;
-    locked: string;
-    volume: string;
+    free: string = "0";
+    locked: string = "0";
+    volume: string = "0";
     raw: any;
     public constructor(init?: Partial<Balance>) {
         Object.assign(this, init);
@@ -161,12 +161,12 @@ export class Balance {
  */
 export class Holding {
     symbol: string;
-    amount: string;
-    position: string;
-    avgPrice: string;
-    lever: number;
-    deposit: string;
-    upl: string;
+    amount: string = "0";
+    position: string = WalletPositions.BOTH;
+    avgPrice: string = "0";
+    lever: number = 1;
+    deposit: string = "0";
+    upl: string = "0";
     raw: any;
     public constructor(init?: Partial<Holding>) {
         Object.assign(this, init);
